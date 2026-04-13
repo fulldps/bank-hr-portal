@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  /* Корпоративная палитра БНБ */
+  --color-bnb-primary: #003087;
+  --color-bnb-primary-hover: #00256b;
+  --color-bnb-primary-light: #e6f0fa;
+  --color-bnb-accent: #fa6303;
+  --color-bnb-border: #e5e7eb;
+  --color-bnb-bg: #f9fafb;
+  --color-bnb-text: #111827;
+  --color-bnb-text-muted: #6b7280;
+
+  /* Шрифты */
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-bnb-bg text-bnb-text font-sans antialiased;
+  }
+}
