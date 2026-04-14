@@ -2,6 +2,8 @@
 import BaseCard from "@/shared/ui/BaseCard.vue";
 import BaseButton from "@/shared/ui/BaseButton.vue";
 import BaseBadge from "@/shared/ui/BaseBadge.vue";
+import NavIcon from "@/shared/ui/NavIcon.vue";
+import { useUiStore } from "@/app/stores/uiStore";
 </script>
 
 <template>
@@ -30,4 +32,8 @@ import BaseBadge from "@/shared/ui/BaseBadge.vue";
       <BaseBadge label="Done" colorClass="bg-green-100 text-green-800" />
     </div>
   </div>
+
+  <button @click="toggleSidebar()" class="w-64 h-64 bg-yellow-300"></button>
+
+  <NavIcon />
 </template>
