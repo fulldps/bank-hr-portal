@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import AppHeader from "@/widgets/layout/AppHeader"
   import AppSidebar from "@/widgets/layout/AppSidebar.vue"
   import useUiStore from "@/app/stores/uiStore.ts"
 
