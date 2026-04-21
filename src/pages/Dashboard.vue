@@ -4,6 +4,8 @@ import BaseButton from "@/shared/ui/BaseButton.vue";
 import BaseBadge from "@/shared/ui/BaseBadge.vue";
 import NavIcon from "@/shared/ui/NavIcon.vue";
 import { useUiStore } from "@/app/stores/uiStore";
+
+const ui = useUiStore();
 </script>
 
 <template>
@@ -33,7 +35,5 @@ import { useUiStore } from "@/app/stores/uiStore";
     </div>
   </div>
 
-  <button @click="toggleSidebar()" class="w-64 h-64 bg-yellow-300"></button>
-
-  <NavIcon />
+  <button @click="ui.toggleSidebar()" class="w-64 h-64 bg-yellow-300"></button>
 </template>
