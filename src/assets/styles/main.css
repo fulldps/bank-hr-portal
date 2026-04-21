@@ -1,22 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  /* Корпоративная палитра БНБ */
   --color-bnb-primary: #003087;
-  --color-bnb-primary-hover: #00256b;
+  --color-bnb-primary-hover: #00254b;
   --color-bnb-primary-light: #e6f0fa;
   --color-bnb-accent: #fa6303;
   --color-bnb-border: #e5e7eb;
   --color-bnb-bg: #f9fafb;
   --color-bnb-text: #111827;
-  --color-bnb-text-muted: #6b7280;
-
-  /* Шрифты */
+  --color-bnb-text-muted: #6b7280; /* ← обрати внимание на дефисы */
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
 @layer base {
   body {
     @apply bg-bnb-bg text-bnb-text font-sans antialiased;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply relative block px-3 py-2.5 text-sm font-medium rounded-lg
+           text-bnb-text-muted hover:text-bnb-primary transition-colors duration-200;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute left-3 right-3 bottom-0 h-0.5 bg-bnb-primary
+           scale-x-0 origin-left transition-transform duration-200;
+  }
+
+  .nav-link:hover::after {
+    @apply scale-x-100;
+  }
+
+  .nav-link.router-link-active {
+    @apply text-bnb-primary font-semibold;
+  }
+
+  .nav-link.router-link-active::after {
+    @apply scale-x-100;
   }
 }
