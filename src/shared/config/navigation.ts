@@ -21,6 +21,7 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     groupLabel: "Рабочее",
     items: [
+      { label: "Канбан-доска", to: "/kanban", icon: "chart" },
       { label: "График смен", to: "/schedule", icon: "calendar" },
       { label: "Аналитика", to: "/analytics", icon: "chart" },
     ],

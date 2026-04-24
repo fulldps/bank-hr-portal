@@ -3,6 +3,7 @@
 @theme {
   --color-bnb-primary: #003087;
   --color-bnb-primary-hover: #00254b;
+  --color-bnb-accent-light: #ede9fe;
   --color-bnb-primary-light: #e6f0fa;
   --color-bnb-accent: #fa6303;
   --color-bnb-border: #e5e7eb;
@@ -40,4 +41,21 @@
   .nav-link.router-link-active::after {
     @apply scale-x-100;
   }
+}
+
+.nav-link-active {
+  background-color: var(--color-bnb-primary-light);
+  color: var(--color-bnb-primary);
+  font-weight: 600;
+  position: relative;
+}
+.nav-link-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 3px;
+  background-color: var(--color-bnb-primary);
+  border-radius: 0 3px 3px 0;
 }
