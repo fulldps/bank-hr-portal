@@ -3,6 +3,13 @@ import { computed } from "vue";
 import type { Ticket } from "@/entities/ticket/types";
 import { PRIORITY_CONFIG } from "@/entities/ticket/constants";
 import BaseBadge from "@/shared/ui/BaseBadge.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+function openDetail() {
+  router.push(`/tickets/${props.ticket.id}`);
+}
 
 const props = defineProps<{
   ticket: Ticket;
@@ -40,6 +47,7 @@ function handleDragEnd(event: DragEvent) {
 <template>
   <div
     draggable="true"
+    @click.stop="openDetail()"
     @dragstart="handleDragStart"
     @dragend="handleDragEnd"
     class="group bg-white rounded-lg border border-bnb-border p-4 mb-3 cursor-grab active:cursor-grabbing hover:shadow-md transition-all duration-200 hover:border-bnb-primary/30"

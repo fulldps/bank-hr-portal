@@ -2,7 +2,16 @@
 import { useUiStore } from "@/app/stores/uiStore";
 import { NAV_GROUPS } from "@/shared/config/navigation";
 import NavIcon from "@/shared/ui/NavIcon.vue";
+import { useAuthStore } from "@/app/stores/authStore";
+import { useRouter } from "vue-router";
 
+const auth = useAuthStore();
+const router = useRouter();
+
+function handleLogout() {
+  auth.logout();
+  router.push("/login");
+}
 const ui = useUiStore();
 </script>
 
@@ -75,5 +84,28 @@ const ui = useUiStore();
         :class="!ui.isSidebarCollapsed ? 'rotate-180' : ''"
       />
     </button>
+    <div class="flex-shrink-0 border-t border-bnb-border p-3">
+      <button
+        class="w-full flex items-center gap-3 px-2 py-2 rounded-lg text-bnb-text-muted hover:bg-red-50 hover:text-red-600 transition-colors duration-150"
+        @click="handleLogout"
+      >
+        <svg
+          class="w-[18px] h-[18px] flex-shrink-0"
+          fill="none"
+          viewBox="0 0 18 18"
+        >
+          <path
+            d="M7 3H3a1 1 0 00-1 1v10a1 1 0 001 1h4M12 13l4-4-4-4M16 9H7"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span v-if="!ui.isSidebarCollapsed" class="text-sm font-medium"
+          >Выйти</span
+        >
+      </button>
+    </div>
   </aside>
 </template>

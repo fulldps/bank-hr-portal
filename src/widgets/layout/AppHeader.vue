@@ -2,6 +2,10 @@
 import { useUiStore } from "@/app/stores/uiStore";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
+import NotificationDropdown from "@/features/notifications/components/NotificationDropdown.vue";
+import { useAuthStore } from "@/app/stores/authStore";
+
+const auth = useAuthStore();
 
 const ui = useUiStore();
 const route = useRoute();
@@ -68,29 +72,8 @@ const breadcrumbs = computed(() => {
 
     <!-- Правая зона: уведомления + разделитель + аватар -->
     <div class="flex items-center gap-3">
-      <!-- Кнопка уведомлений -->
-      <button
-        class="w-9 h-9 rounded-lg flex items-center justify-center text-bnb-text-muted hover:bg-bnb-primary-light hover:text-bnb-primary transition-colors duration-150 relative"
-      >
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 20 20">
-          <path
-            d="M10 2a6 6 0 00-6 6v3.5L2.5 13h15L16 11.5V8a6 6 0 00-6-6z"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M8.5 16a1.5 1.5 0 003 0"
-            stroke="currentColor"
-            stroke-width="1.5"
-          />
-        </svg>
-        <div
-          class="absolute top-1 right-1 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center"
-        >
-          3
-        </div>
-      </button>
+      <!-- Notification -->
+      <NotificationDropdown />
 
       <!-- Разделитель -->
       <div class="w-px h-6 bg-bnb-border" />
@@ -98,8 +81,9 @@ const breadcrumbs = computed(() => {
       <!-- Аватар пользователя -->
       <button
         class="w-9 h-9 rounded-full bg-bnb-primary flex items-center justify-center text-[11px] font-semibold text-white cursor-pointer hover:ring-2 hover:ring-bnb-primary hover:ring-offset-1 transition-all duration-150"
+        @click="$router.push('/profile')"
       >
-        АИ
+        {{ auth.initials }}
       </button>
     </div>
   </header>
