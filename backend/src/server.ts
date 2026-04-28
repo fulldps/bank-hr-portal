@@ -1,5 +1,7 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import app from "./app";
-import { env } from "./config/env";
 import { pool } from "./config/database";
 
 async function start() {
@@ -7,9 +9,10 @@ async function start() {
     await pool.query("SELECT 1");
     console.log("✅ Database connected");
 
-    app.listen(env.PORT, () => {
-      console.log(`✅ Server running on http://localhost:${env.PORT}`);
-      console.log(`   Environment: ${env.NODE_ENV}`);
+    const PORT = Number(process.env.PORT) || 3000;
+    app.listen(PORT, () => {
+      console.log(`✅ Server running on http://localhost:${PORT}`);
+      console.log(`   Environment: ${process.env.NODE_ENV}`);
     });
   } catch (err) {
     console.error("❌ Failed to connect to database:", err);

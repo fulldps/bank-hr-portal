@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 export const env = {
   PORT: Number(process.env.PORT) || 3000,
   NODE_ENV: process.env.NODE_ENV || "development",
@@ -6,7 +9,7 @@ export const env = {
     PORT: Number(process.env.DB_PORT) || 5432,
     NAME: process.env.DB_NAME || "bnb_hr_portal",
     USER: process.env.DB_USER || "bnb_user",
-    PASSWORD: process.env.DB_PASSWORD || "",
+    PASSWORD: process.env.DB_PASSWORD || "bnb_password_2024",
   },
   JWT: {
     SECRET: process.env.JWT_SECRET || "fallback_secret",

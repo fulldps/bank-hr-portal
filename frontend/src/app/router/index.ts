@@ -83,7 +83,7 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, _from, next) => {
+router.beforeEach((to, _from) => {
   const auth = useAuthStore();
 
   if (to.meta.title) {
@@ -92,20 +92,20 @@ router.beforeEach((to, _from, next) => {
 
   if (to.meta.public) {
     if (auth.isAuthenticated && to.name === "Login") {
-      return next({ name: "Dashboard" });
+      return { name: "Dashboard" };
     }
-    return next();
+    return true;
   }
 
   if (!auth.isAuthenticated) {
-    return next({ name: "Login", query: { redirect: to.fullPath } });
+    return { name: "Login", query: { redirect: to.fullPath } };
   }
 
   if (to.meta.roles && !to.meta.roles.includes(auth.user?.role ?? "")) {
-    return next({ name: "Dashboard" });
+    return { name: "Dashboard" };
   }
 
-  next();
+  return true;
 });
 
 export default router;
