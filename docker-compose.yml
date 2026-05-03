@@ -1,24 +1,68 @@
-version: "3.9"
-
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: bnb_hr_postgres
+    container_name: bnb_hr_db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: bnb_hr_portal
-      POSTGRES_USER: bnb_user
-      POSTGRES_PASSWORD: bnb_password_2024
+      POSTGRES_USER: ${DB_USER:-bnb_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-bnb_password_2024}
+      POSTGRES_DB: ${DB_NAME:-bnb_hr_portal}
     ports:
-      - "5432:5432"
+      - "${DB_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backend/src/db/migrations/001_initial.sql:/docker-entrypoint-initdb.d/001_initial.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U bnb_user -d bnb_hr_portal"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${DB_USER:-bnb_user} -d ${DB_NAME:-bnb_hr_portal}",
+        ]
       interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: bnb_hr_backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_HOST: postgres
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: bnb_hr_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: bnb_hr_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@bnb.by}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - dev
 
 volumes:
   postgres_data:
