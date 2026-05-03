@@ -117,7 +117,7 @@ CREATE INDEX idx_notifications_user ON notifications(user_id, is_read);
 -- Seed: тестовые пользователи (пароль: Admin1234!)
 INSERT INTO users (email, password_hash, full_name, first_name, last_name, role, department, position, employee_id)
 VALUES
-  ('admin@bnb.by', '$2b$10$LtEkAyzSyiiPKrBWle1cbuif/uwSQKJ3mLujF98EWfKBOm96ylMnK', 'Иван Иванов', 'Иван', 'Иванов', 'admin', 'IT', 'Администратор', 'EMP-001'),
-  ('manager@bnb.by', '$2b$10$LtEkAyzSyiiPKrBWle1cbuif/uwSQKJ3mLujF98EWfKBOm96ylMnK', 'Пётр Петров', 'Пётр', 'Петров', 'manager', 'HR', 'Менеджер', 'EMP-002'),
-  ('employee@bnb.by', '$2b$10$LtEkAyzSyiiPKrBWle1cbuif/uwSQKJ3mLujF98EWfKBOm96ylMnK', 'Анна Сидорова', 'Анна', 'Сидорова', 'employee', 'Support', 'Специалист', 'EMP-003')
+  ('admin@bnb.by', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Иван Иванов', 'Иван', 'Иванов', 'admin', 'IT', 'Администратор', 'EMP-001'),
+  ('manager@bnb.by', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Пётр Петров', 'Пётр', 'Петров', 'manager', 'HR', 'Менеджер', 'EMP-002'),
+  ('employee@bnb.by', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Анна Сидорова', 'Анна', 'Сидорова', 'employee', 'Support', 'Специалист', 'EMP-003')
 ON CONFLICT (email) DO NOTHING;
