@@ -78,7 +78,7 @@ async function handleSubmit() {
             <input
               v-model="email"
               type="email"
-              placeholder="ivanov@bnb.by"
+              placeholder="admin@bnb.by"
               autocomplete="email"
               class="w-full h-10 px-3 text-sm border rounded-lg bg-white text-bnb-text placeholder:text-bnb-text-muted outline-none transition-colors"
               :class="
@@ -212,24 +212,19 @@ async function handleSubmit() {
             <button
               v-for="acc in [
                 {
-                  email: 'ivanov@bnb.by',
-                  role: 'HR-специалист',
-                  color: 'bg-blue-50 text-blue-700 border-blue-200',
-                },
-                {
-                  email: 'petrova@bnb.by',
-                  role: 'Руководитель',
-                  color: 'bg-purple-50 text-purple-700 border-purple-200',
-                },
-                {
-                  email: 'sidorov@bnb.by',
-                  role: 'Сотрудник',
-                  color: 'bg-gray-50 text-gray-700 border-gray-200',
-                },
-                {
                   email: 'admin@bnb.by',
                   role: 'Администратор',
                   color: 'bg-red-50 text-red-700 border-red-200',
+                },
+                {
+                  email: 'manager@bnb.by',
+                  role: 'Менеджер',
+                  color: 'bg-purple-50 text-purple-700 border-purple-200',
+                },
+                {
+                  email: 'employee@bnb.by',
+                  role: 'Сотрудник',
+                  color: 'bg-gray-50 text-gray-700 border-gray-200',
                 },
               ]"
               :key="acc.email"
@@ -238,7 +233,7 @@ async function handleSubmit() {
               :class="acc.color"
               @click="
                 email = acc.email;
-                password = acc.email === 'admin@bnb.by' ? 'admin123' : '123456';
+                password = 'password';
               "
             >
               <span class="font-medium">{{ acc.role }}</span>

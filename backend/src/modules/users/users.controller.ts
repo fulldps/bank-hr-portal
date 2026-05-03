@@ -12,7 +12,7 @@ export async function getAll(req: Request, res: Response, next: NextFunction) {
 
 export async function getOne(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await service.getUserById(req.params.id);
+    const data = await service.getUserById(String(req.params.id));
     res.json({ success: true, data });
   } catch (err) {
     next(err);

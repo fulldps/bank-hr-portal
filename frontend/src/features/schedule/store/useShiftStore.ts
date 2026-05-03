@@ -26,7 +26,10 @@ export const useShiftStore = defineStore("shifts", () => {
 
   const employees = computed(() => {
     const map = new Map<string, string>();
-    shifts.value.forEach((s) => map.set(s.userId, s.userName));
+    shifts.value.forEach((s) => {
+      const name: string = s.userName;
+      map.set(s.userId, name);
+    });
     return Array.from(map.entries()).map(([id, name]) => ({ id, name }));
   });
 
@@ -50,8 +53,8 @@ export const useShiftStore = defineStore("shifts", () => {
   async function fetchShifts() {
     isLoading.value = true;
     try {
-      const dateFrom = weekDates.value[0];
-      const dateTo = weekDates.value[6];
+      const dateFrom: string = weekDates.value[0];
+      const dateTo: string = weekDates.value[6];
       const data = await api.get<Shift[]>(
         `/shifts?dateFrom=${dateFrom}&dateTo=${dateTo}`,
       );

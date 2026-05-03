@@ -36,7 +36,10 @@ export async function create(req: Request, res: Response, next: NextFunction) {
 
 export async function approve(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await service.approveShift(req.params.id, req.user!.userId);
+    const data = await service.approveShift(
+      String(req.params.id),
+      req.user!.userId,
+    );
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -47,7 +50,7 @@ export async function reject(req: Request, res: Response, next: NextFunction) {
   try {
     const { reason } = RejectSchema.parse(req.body);
     const data = await service.rejectShift(
-      req.params.id,
+      String(req.params.id),
       reason,
       req.user!.userId,
     );

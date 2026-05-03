@@ -20,7 +20,9 @@ export const useAuthStore = defineStore("auth", () => {
   );
   const initials = computed(() => {
     if (!user.value) return "";
-    return (user.value.firstName[0] + user.value.lastName[0]).toUpperCase();
+    const first = user.value.firstName?.[0] ?? "";
+    const last = user.value.lastName?.[0] ?? "";
+    return (first + last).toUpperCase();
   });
 
   async function login(email: string, password: string) {

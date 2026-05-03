@@ -1,4 +1,3 @@
-// Статусы колонок канбана
 export type TicketStatus =
   | "backlog"
   | "todo"
@@ -6,17 +5,14 @@ export type TicketStatus =
   | "review"
   | "done";
 
-// Приоритеты тикетов
 export type TicketPriority = "low" | "medium" | "high" | "critical";
 
-// Базовая информация о пользователе
 export interface User {
   id: string;
   name: string;
   avatar?: string;
 }
 
-// Карточка тикета
 export interface Ticket {
   id: string;
   title: string;
@@ -25,21 +21,20 @@ export interface Ticket {
   priority: TicketPriority;
   assigneeId?: string;
   assignee?: User;
+  author?: User;
   createdAt: string;
   updatedAt: string;
   dueDate?: string;
   tags?: string[];
-  order: number; // Для сортировки внутри колонки
+  order: number;
 }
 
-// Колонка канбана
 export interface KanbanColumn {
   id: TicketStatus;
   title: string;
   tickets: Ticket[];
 }
 
-// Ответ от API (универсальный)
 export interface ApiResponse<T> {
   data: T;
   message?: string;

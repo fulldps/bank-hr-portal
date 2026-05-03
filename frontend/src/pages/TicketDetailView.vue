@@ -179,6 +179,7 @@ function formatDate(dateStr?: string) {
             </div>
 
             <!-- Автор -->
+            <!-- Фикс: используем optional chaining, так как author может отсутствовать -->
             <div>
               <p class="text-xs font-medium text-bnb-text-muted mb-1">Автор</p>
               <div v-if="ticket.author" class="flex items-center gap-2 h-9">
@@ -200,6 +201,12 @@ function formatDate(dateStr?: string) {
                   {{ ticket.author.name }}
                 </span>
               </div>
+              <p
+                v-else
+                class="text-sm text-bnb-text-muted h-9 flex items-center"
+              >
+                Неизвестен
+              </p>
             </div>
 
             <!-- Срок -->

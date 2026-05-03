@@ -25,7 +25,7 @@ export async function getUnread(
 
 export async function markOne(req: Request, res: Response, next: NextFunction) {
   try {
-    await service.markRead(req.params.id, req.user!.userId);
+    await service.markRead(String(req.params.id), req.user!.userId);
     res.json({ success: true });
   } catch (err) {
     next(err);
@@ -43,7 +43,7 @@ export async function markAll(req: Request, res: Response, next: NextFunction) {
 
 export async function remove(req: Request, res: Response, next: NextFunction) {
   try {
-    await service.deleteNotification(req.params.id, req.user!.userId);
+    await service.deleteNotification(String(req.params.id), req.user!.userId);
     res.json({ success: true });
   } catch (err) {
     next(err);

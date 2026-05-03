@@ -19,31 +19,34 @@ const emits = defineEmits<{
 
 const store = useShiftStore();
 
-const form = ref({
-  type: "morning" as ShiftType,
+const initialDate: string =
+  props.date !== undefined
+    ? props.date
+    : new Date().toISOString().split("T")[0];
+
+const form = ref<{
+  type: ShiftType;
+  startTime: string;
+  endTime: string;
+  date: string;
+}>({
+  type: "morning",
   startTime: "09:00",
   endTime: "18:00",
-  date: props.date ?? new Date().toISOString().split("T")[0],
+  date: initialDate,
 });
+
+const hasTime = (type: ShiftType): boolean =>
+  ["morning", "evening", "night"].includes(type);
 
 function handleSubmit() {
   store.createShift({
-    userId: props.userId ?? "user-1",
-    userName: props.userName ?? "Сотрудник",
+    userId: props.userId !== undefined ? props.userId : "user-1",
+    userName: props.userName !== undefined ? props.userName : "Сотрудник",
     date: form.value.date,
     type: form.value.type,
-    startTime:
-      form.value.type === "morning" ||
-      form.value.type === "evening" ||
-      form.value.type === "night"
-        ? form.value.startTime
-        : undefined,
-    endTime:
-      form.value.type === "morning" ||
-      form.value.type === "evening" ||
-      form.value.type === "night"
-        ? form.value.endTime
-        : undefined,
+    startTime: hasTime(form.value.type) ? form.value.startTime : undefined,
+    endTime: hasTime(form.value.type) ? form.value.endTime : undefined,
     overtimeMinutes: 0,
     status: "pending",
   });
@@ -53,9 +56,6 @@ function handleSubmit() {
 function handleClose() {
   emits("update:modelValue", false);
 }
-
-const hasTime = (type: ShiftType) =>
-  ["morning", "evening", "night"].includes(type);
 </script>
 
 <template>
@@ -74,7 +74,6 @@ const hasTime = (type: ShiftType) =>
           class="w-full h-9 px-3 text-sm border border-bnb-border rounded-lg bg-white text-bnb-text focus:border-bnb-primary outline-none transition-colors"
         />
       </div>
-
       <div class="space-y-1">
         <label class="text-xs font-medium text-bnb-text-muted">Тип смены</label>
         <select
@@ -90,7 +89,6 @@ const hasTime = (type: ShiftType) =>
           </option>
         </select>
       </div>
-
       <div v-if="hasTime(form.type)" class="grid grid-cols-2 gap-3">
         <div class="space-y-1">
           <label class="text-xs font-medium text-bnb-text-muted">Начало</label>
@@ -110,7 +108,6 @@ const hasTime = (type: ShiftType) =>
         </div>
       </div>
     </form>
-
     <template #footer>
       <BaseButton variant="secondary" @click="handleClose">Отмена</BaseButton>
       <BaseButton variant="primary" @click="handleSubmit">Отправить</BaseButton>

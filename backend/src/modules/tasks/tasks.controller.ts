@@ -26,7 +26,7 @@ export async function getAll(req: Request, res: Response, next: NextFunction) {
 
 export async function getOne(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await service.getTaskById(req.params.id);
+    const data = await service.getTaskById(String(req.params.id));
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -46,7 +46,7 @@ export async function create(req: Request, res: Response, next: NextFunction) {
 export async function update(req: Request, res: Response, next: NextFunction) {
   try {
     const body = UpdateSchema.parse(req.body);
-    const data = await service.updateTask(req.params.id, body);
+    const data = await service.updateTask(String(req.params.id), body);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -55,7 +55,7 @@ export async function update(req: Request, res: Response, next: NextFunction) {
 
 export async function remove(req: Request, res: Response, next: NextFunction) {
   try {
-    await service.deleteTask(req.params.id);
+    await service.deleteTask(String(req.params.id));
     res.json({ success: true });
   } catch (err) {
     next(err);

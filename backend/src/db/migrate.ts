@@ -14,7 +14,7 @@ async function migrate() {
   );
 
   try {
-    await pool.query(sql);
+    await pool.query(sql, []);
     console.log("✅ Migration completed");
   } catch (err: any) {
     if (err.code === "42710" || err.message.includes("already exists")) {

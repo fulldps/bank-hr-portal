@@ -31,7 +31,7 @@ export async function getAll(req: Request, res: Response, next: NextFunction) {
 
 export async function getOne(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await service.getTicketById(req.params.id);
+    const data = await service.getTicketById(String(req.params.id));
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -54,7 +54,7 @@ export async function create(req: Request, res: Response, next: NextFunction) {
 export async function update(req: Request, res: Response, next: NextFunction) {
   try {
     const body = UpdateSchema.parse(req.body);
-    const data = await service.updateTicket(req.params.id, body);
+    const data = await service.updateTicket(String(req.params.id), body);
     res.json({ success: true, data });
   } catch (err) {
     next(err);
@@ -63,7 +63,7 @@ export async function update(req: Request, res: Response, next: NextFunction) {
 
 export async function remove(req: Request, res: Response, next: NextFunction) {
   try {
-    await service.deleteTicket(req.params.id);
+    await service.deleteTicket(String(req.params.id));
     res.json({ success: true });
   } catch (err) {
     next(err);

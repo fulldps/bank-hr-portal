@@ -26,13 +26,13 @@ export function getPool(): Pool {
 }
 
 export const pool = {
-  query: (...args: Parameters<Pool["query"]>) => getPool().query(...args as any),
+  query: (text: string, params?: any[]) => getPool().query(text, params),
   end: () => getPool().end(),
 };
 
 export async function query<T = any>(
   text: string,
-  params?: any[]
+  params?: any[],
 ): Promise<T[]> {
   const start = Date.now();
   const res = await getPool().query(text, params);
@@ -51,7 +51,7 @@ export async function query<T = any>(
 
 export async function queryOne<T = any>(
   text: string,
-  params?: any[]
+  params?: any[],
 ): Promise<T | null> {
   const rows = await query<T>(text, params);
   return rows[0] ?? null;

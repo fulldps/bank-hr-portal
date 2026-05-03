@@ -6,7 +6,7 @@ import { pool } from "./config/database";
 
 async function start() {
   try {
-    await pool.query("SELECT 1");
+    await pool.query("SELECT 1", []);
     console.log("✅ Database connected");
 
     const PORT = Number(process.env.PORT) || 3000;
