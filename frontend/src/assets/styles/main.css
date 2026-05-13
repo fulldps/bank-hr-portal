@@ -9,7 +9,7 @@
   --color-bnb-border: #e5e7eb;
   --color-bnb-bg: #f9fafb;
   --color-bnb-text: #111827;
-  --color-bnb-text-muted: #6b7280; /* ← обрати внимание на дефисы */
+  --color-bnb-text-muted: #6b7280;
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
